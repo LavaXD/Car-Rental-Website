@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="/js/jquery-ui.min.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+</head>
+
+<body>
+    <!-- nav -->
+    <nav class="navbar navbar-expand-lg bg-body-white"
+        style="font-size: xx-large;font-family: monospace;margin: 20px 50px 10px 50px;">
+        <div class="container-fluid">
+            <div class="logo">
+                <img src="images/logo.jpg">
+            </div>
+
+            <a id="home" class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="reservation.html">Reservation</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
+
+                <!-- search -->
+                <div class="search-box">
+                    <div class="d-flex" role="search" style="margin-right: 5%;">
+                        <input id="searchInput" class="form-control me-2" type="search" placeholder="Search for cars"
+                            aria-label="Search" style="width: 400px;font-size: x-large;">
+                        <button class="btn btn-outline-dark" type="submit" style="font-size: x-large;">Search</button>
+                    </div>
+
+                    <ul class="searchResults">
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div style="border-bottom: 1.5px solid rgb(228, 228, 228);"></div>
+
+    <!-- body -->
+    <div class="all">
+        <div class="cancel">
+            <div class="btn-group dropstart">
+                <button type="button" class="btn btn-white dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false" onclick="cancel()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        <div class="reserveH">
+            <h2 style="font-weight: bold;">Car name</h2>
+            <span class="badge text-bg-warning position-relative" style="float: right;margin-top: -5px;">
+                STOCK
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                    <script>document.write(JSON.parse(sessionStorage.getItem('car')).quantity)</script>
+                </span>
+            </span>
+            <hr class="divider">
+            </hr>
+        </div>
+
+        <div class="reserveB">
+            <div class="left">
+                <img src="images/bugatti-blue.png" alt="">
+            </div>
+
+            <!-- car info -->
+            <div class="right">
+                <div class="carInfo">
+                    $&nbsp;<span style="font-size: 65px;font-weight: bold;"> 188 </span> &nbsp;/ Day
+                </div>
+
+                <div class="carQty">
+                    <span>Quantity: </span>
+                    <button id="minus" type="button" class="btn btn-warning"
+                        style="display: flex;font-size: 30px;align-items: center;">-</button>
+                    <span id="qty">
+                        <script>
+                            sessionStorage.getItem('qty') == 0 || sessionStorage.getItem('qty') == null || sessionStorage.getItem('qty') > JSON.parse(sessionStorage.getItem('car')).quantity ? document.write('1') : document.write(sessionStorage.getItem('qty'))
+                        </script>
+                    </span>
+                    <button id="plus" type="button" class="btn btn-warning"
+                        style="display: flex;font-size: 25px;align-items: center;">+</button>
+                </div>
+
+                <div class="otherInfo">
+                    <ul>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-ev-front" viewBox="0 0 16 16">
+                            <path
+                                d="M9.354 4.243a.19.19 0 0 0-.085-.218.186.186 0 0 0-.23.034L6.051 7.246a.188.188 0 0 0 .136.316h1.241l-.673 2.195a.19.19 0 0 0 .085.218c.075.043.17.03.23-.034l2.88-3.187a.188.188 0 0 0-.137-.316H8.572z" />
+                            <path
+                                d="M4.819 2A2.5 2.5 0 0 0 2.52 3.515l-.792 1.848a.8.8 0 0 1-.38.404c-.5.25-.855.715-.965 1.262L.05 8.708a2.5 2.5 0 0 0-.049.49v.413c0 .814.39 1.543 1 1.997V13.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1.338c1.292.048 2.745.088 4 .088s2.708-.04 4-.088V13.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1.892c.61-.454 1-1.183 1-1.997v-.413q0-.248-.049-.49l-.335-1.68a1.8 1.8 0 0 0-.964-1.261.8.8 0 0 1-.381-.404l-.792-1.848A2.5 2.5 0 0 0 11.181 2H4.82ZM3.44 3.91A1.5 1.5 0 0 1 4.82 3h6.362a1.5 1.5 0 0 1 1.379.91l.792 1.847a1.8 1.8 0 0 0 .853.904c.222.112.381.32.43.564l.336 1.679q.03.146.029.294v.413a1.48 1.48 0 0 1-1.408 1.484c-1.555.07-3.786.155-5.592.155s-4.037-.084-5.592-.155A1.48 1.48 0 0 1 1 9.611v-.413q0-.148.03-.294l.335-1.68a.8.8 0 0 1 .43-.563c.383-.19.685-.511.853-.904z" />
+                        </svg>
+                        <li id="mode" style="margin: 0 30px 0 10px;">Automatic</li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-people" viewBox="0 0 16 16">
+                            <path
+                                d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                        </svg>
+                        <li id="seats" style="margin: 0 30px 0 10px;">4 Seat</li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-suitcase" viewBox="0 0 16 16">
+                            <path
+                                d="M6 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 6 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 10 5" />
+                            <path
+                                d="M6.5 0a.5.5 0 0 0-.5.5V3H5a2 2 0 0 0-2 2v8a2 2 0 0 0 1.031 1.75A1.003 1.003 0 0 0 5 16a1 1 0 0 0 1-1h4a1 1 0 1 0 1.969-.25A2 2 0 0 0 13 13V5a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-.5-.5zM9 3H7V1h2zm3 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                        </svg>
+                        <li id="bags" style="margin: 0 30px 0 10px;">2 Bags</li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-palette" viewBox="0 0 16 16">
+                            <path
+                                d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                            <path
+                                d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7" />
+                        </svg>
+                        <li id="color" style="margin: 0 30px 0 10px;">Blue</li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-bootstrap" viewBox="0 0 16 16">
+                            <path
+                                d="M5.062 12h3.475c1.804 0 2.888-.908 2.888-2.396 0-1.102-.761-1.916-1.904-2.034v-.1c.832-.14 1.482-.93 1.482-1.816 0-1.3-.955-2.11-2.542-2.11H5.062zm1.313-4.875V4.658h1.78c.973 0 1.542.457 1.542 1.237 0 .802-.604 1.23-1.764 1.23zm0 3.762V8.162h1.822c1.236 0 1.887.463 1.887 1.348 0 .896-.627 1.377-1.811 1.377z" />
+                            <path
+                                d="M0 4a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4zm4-3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V4a3 3 0 0 0-3-3z" />
+                        </svg>
+                        <li id="brand" style="margin: 0 30px 0 10px;">Brand</li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-signpost-split" viewBox="0 0 16 16">
+                            <path
+                                d="M7 7V1.414a1 1 0 0 1 2 0V2h5a1 1 0 0 1 .8.4l.975 1.3a.5.5 0 0 1 0 .6L14.8 5.6a1 1 0 0 1-.8.4H9v10H7v-5H2a1 1 0 0 1-.8-.4L.225 9.3a.5.5 0 0 1 0-.6L1.2 7.4A1 1 0 0 1 2 7zm1 3V8H2l-.75 1L2 10zm0-5h6l.75-1L14 3H8z" />
+                        </svg>
+                        <li id="milage" style="margin: 0 30px 0 10px;">Miles</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="datesBox">
+            <div class="pickTime">
+                <div class="label">
+                    <label id="t" for="pickup">Pick Up</label>
+                </div>
+                <div id="pickup" class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-calendar2-check" viewBox="0 0 16 16">
+                            <path
+                                d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                            <path
+                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
+                            <path
+                                d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+                    </span>
+                    <input id="pickUpPicker" type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" placeholder="YYYY-MM-dd">
+                </div>
+            </div>
+
+            <div class="returnTime">
+                <label id="t" for="return">Return</label>
+                <div id="return" class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-calendar2-check" viewBox="0 0 16 16">
+                            <path
+                                d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                            <path
+                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
+                            <path
+                                d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z" />
+                        </svg></span>
+                    <input id="returnPicker" type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" placeholder="YYYY-MM-dd">
+                </div>
+            </div>
+
+            <div class="total">
+                <label id="t">Subtotal</label>
+                <div class="subtotal">
+                    <script>
+                        let p = JSON.parse(sessionStorage.getItem('car')).price;
+                        let days = sessionStorage.getItem('dayDiff');
+
+                        days == null ? document.write('$' + 0) : document.write('$' + p * qty.innerText * days);
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="reserveH" style="margin-top: 80px;">
+            <h2 style="font-weight: bold;">Contact INFO</h2>
+            <hr class="divider">
+            </hr>
+        </div>
+
+        <form name="form" class="infoForm g-3 needs-validation" action="orderDetail.php" method="GET">
+            <div class="mb-3">
+                <label for="validationName" class="form-label">Name</label>
+                <input name="name" type="name" class="form-control" id="validationName" placeholder="full name"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Mobile Number</label>
+                <input name="number" type="mobile" class="form-control" id="validationNumber" placeholder="+61 (Au)"
+                    required>
+                <div class="col-auto">
+                    <span id="mobileHelpInline" class="form-text">
+                        Must be 10 digits
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                <input name="email" type="email" class="form-control" id="exampleFormControlInput1"
+                    placeholder="name@example.com" required>
+            </div>
+            <div class="form-check" style="margin-top: 45px;">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Have a valid driver’s license?
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            </div>
+            <button id="sbmit" type="submit" class="btn btn-warning">Submit</button>
+        </form>
+    </div>
+
+    <script src="reservation.js"></script>
+    <script src="searchBox.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
